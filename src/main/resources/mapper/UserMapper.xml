@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.User">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+    </resultMap>
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*) from user where userName=#{userName} and password=#{password} and flag=#{flag}
+    </select>
+
+    <insert id="addUser" parameterType="com.javaclimb.livewhere.domain.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="flag != null">
+                #{flag},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="verifyUser" resultType="java.lang.Integer">
+        select count(*) from user where userName=#{userName}
+    </select>
+
+    <select id="searchUserInfo" resultMap="BaseResultMap" resultType="java.lang.Integer">
+        select userId from user where userName=#{userName}
+    </select>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where userId = #{userId}
+    </delete>
+
+    <select id="searchUser" resultMap="BaseResultMap" resultType="java.lang.Integer">
+        select * from user where userId=#{userId}
+    </select>
+
+    <update id="updateUser" parameterType="com.javaclimb.livewhere.domain.User">
+        update user
+        <set>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+
+    <update id="updateUserEmail" parameterType="com.javaclimb.livewhere.domain.User">
+        update user
+        <set>
+            <if test="email != null">
+                email = #{email},
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+
+    <update id="updatePassword" parameterType="com.javaclimb.livewhere.domain.User">
+        update user
+        <set>
+            <if test="password != null">
+                password = #{password},
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+</mapper>

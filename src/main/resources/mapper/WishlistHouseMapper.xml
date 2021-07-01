@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.WishlistHouseMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.House">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="houseId" jdbcType="INTEGER" property="houseId" />
+        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="hostId" jdbcType="INTEGER" property="hostId" />
+        <result column="houseName" jdbcType="VARCHAR" property="houseName" />
+        <result column="price" jdbcType="FLOAT" property="price" />
+        <result column="discountPrice" jdbcType="FLOAT" property="discountPrice" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="information" jdbcType="VARCHAR" property="information" />
+        <result column="addressDetail" jdbcType="VARCHAR" property="addressDetail" />
+        <result column="people" jdbcType="INTEGER" property="people" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="lable" jdbcType="VARCHAR" property="lable"/>
+        <result column="toilet" jdbcType="VARCHAR" property="toilet"/>
+        <result column="bed" jdbcType="VARCHAR" property="bed"/>
+        <result column="room" jdbcType="VARCHAR" property="room"/>
+    </resultMap>
+
+    <select id="selectWishlistHouse" resultType="com.javaclimb.livewhere.domain.WishlistHouse">
+        select distinct u.* from house u,wishlist a where u.houseId in (select houseId from wishlist where userId=#{userId});
+    </select>
+
+</mapper>

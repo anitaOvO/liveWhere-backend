@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.HouseMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.House">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="houseId" jdbcType="INTEGER" property="houseId" />
+        <result column="hostId" jdbcType="INTEGER" property="hostId" />
+        <result column="houseName" jdbcType="VARCHAR" property="houseName" />
+        <result column="price" jdbcType="FLOAT" property="price" />
+        <result column="discountPrice" jdbcType="FLOAT" property="discountPrice" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="information" jdbcType="VARCHAR" property="information" />
+        <result column="addressDetail" jdbcType="VARCHAR" property="addressDetail" />
+        <result column="people" jdbcType="INTEGER" property="people" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="lable" jdbcType="VARCHAR" property="lable"/>
+        <result column="toilet" jdbcType="VARCHAR" property="toilet"/>
+        <result column="bed" jdbcType="VARCHAR" property="bed"/>
+        <result column="room" jdbcType="VARCHAR" property="room"/>
+        <result column="image1" jdbcType="VARCHAR" property="image1"/>
+        <result column="image2" jdbcType="VARCHAR" property="image2"/>
+        <result column="image3" jdbcType="VARCHAR" property="image3"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        houseId,hostId,houseName,price,discountPrice,area,information,addressDetail,people,status,city,lable,toilet,bed,room,image1,image2,image3
+    </sql>
+    <sql id="List_Column_List">
+        houseId,houseName,price,discountPrice,lable,image1,image2,image3
+    </sql>
+
+    <insert id="insert" parameterType="com.javaclimb.livewhere.domain.House">
+        insert into house
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">
+                hostId,
+            </if>
+            <if test="houseName != null">
+                houseName,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="discountPrice != null">
+                discountPrice,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="information != null">
+                information,
+            </if>
+            <if test="addressDetail != null">
+                addressDetail,
+            </if>
+            <if test="people != null">
+                people,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="lable != null">
+                lable,
+            </if>
+            <if test="toilet != null">
+                toilet,
+            </if>
+            <if test="bed != null">
+                bed,
+            </if>
+            <if test="room != null">
+                room,
+            </if>
+            <if test="image1 != null">
+                image1,
+            </if>
+            <if test="image2 != null">
+                image2,
+            </if>
+            <if test="image3 != null">
+                image3,
+            </if>
+        </trim>
+
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">
+                #{hostId},
+            </if>
+            <if test="houseName != null">
+                #{houseName},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="discountPrice != null">
+                #{discountPrice},
+            </if>
+            <if test="area != null">
+                #{area},
+            </if>
+            <if test="information != null">
+                #{information},
+            </if>
+            <if test="addressDetail != null">
+                #{addressDetail},
+            </if>
+            <if test="people != null">
+                #{people},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="lable != null">
+                #{lable},
+            </if>
+            <if test="toilet != null">
+                #{toilet},
+            </if>
+            <if test="bed != null">
+                #{bed},
+            </if>
+            <if test="room != null">
+                #{room},
+            </if>
+            <if test="image1 != null">
+                #{image1},
+            </if>
+            <if test="image2 != null">
+                #{image2},
+            </if>
+            <if test="image3 != null">
+                #{image3},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.javaclimb.livewhere.domain.House">
+        update house
+        <set>
+            <if test="hostId != null">
+                hostId = #{hostId},
+            </if>
+            <if test="houseName != null">
+                houseName = #{houseName},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="price != null">
+                discountPrice = #{discountPrice},
+            </if>
+            <if test="area != null">
+                area = #{area},
+            </if>
+            <if test="information != null">
+                information = #{information},
+            </if>
+            <if test="addressDetail != null">
+                addressDetail = #{addressDetail},
+            </if>
+            <if test="people != null">
+                people = #{people},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="lable != null">
+                lable = #{lable},
+            </if>
+            <if test="toilet != null">
+                toilet = #{toilet},
+            </if>
+            <if test="bed != null">
+                bed = #{bed},
+            </if>
+            <if test="room != null">
+                room = #{room},
+            </if>
+        </set>
+        where houseId = #{houseId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from house where houseId = #{houseId}
+    </delete>
+
+    <select id="allHouse" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"></include>
+        from house
+    </select>
+
+
+    <select id="houseOfCity" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="List_Column_List"></include>
+        from house where city = #{city}
+    </select>
+
+    <select id="detailOfHouse" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"></include>
+        from house where houseId = #{houseId}
+    </select>
+
+    <select id="houseOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="List_Column_List"></include>
+        from house where houseName like #{houseName} and city=#{city}
+    </select>
+
+    <select id="landMark" resultMap="BaseResultMap">
+
+        select * from house where landmark=#{landmark}
+    </select>
+
+    <select id="searchUserHouse" resultMap="BaseResultMap">
+    select * from house where hostId=#{hostId}
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.LandMarkMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.LandMark">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="landmarkId" jdbcType="INTEGER" property="landmarkId" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="landmark" jdbcType="VARCHAR" property="landmark"/>
+    </resultMap>
+
+
+    <select id="ofCity" resultMap="BaseResultMap">
+
+        select *
+        from landmark where  city=#{city}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.OrderQueryMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.OrderQuery">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="orderId" jdbcType="INTEGER" property="orderId" />
+        <result column="dayStart" jdbcType="TIMESTAMP" property="dayStart" />
+        <result column="dayEnd" jdbcType="TIMESTAMP" property="dayEnd" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="ownerId" jdbcType="INTEGER" property="ownerId" />
+        <result column="houseId" jdbcType="INTEGER" property="houseId" />
+        <result column="totalPrice" jdbcType="FLOAT" property="totalPrice" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="houseName" jdbcType="VARCHAR" property="houseName" />
+        <result column="image1" jdbcType="VARCHAR" property="image1" />
+        <result column="addressDetail" jdbcType="VARCHAR" property="addressDetail" />
+        <result column="lable" jdbcType="VARCHAR" property="lable" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        orderId,dayStart,dayEnd,userId,ownerId,houseId,totalPrice,status
+    </sql>
+    <select id="orderList" resultMap="BaseResultMap">
+        select a.orderId,a.status,a.dayStart, a.dayEnd, a.userId, a.ownerId, a.houseId, a.totalPrice, b.houseName ,b.image1, b.lable, b.addressDetail from
+        `order` a join house b on a.houseId=b.houseId where a.status=#{status} and a.userId=#{userId};
+    </select>
+
+    <select id="searchOrder" resultMap="BaseResultMap">
+    select a.orderId,a.status,a.dayStart, a.dayEnd, a.userId, a.ownerId, a.houseId, a.totalPrice, b.houseName ,b.image1, b.lable, b.addressDetail from
+        `order` a join house b on a.houseId=b.houseId where a.orderId=#{orderId}
+</select>
+
+    <insert id="addOrder" parameterType="com.javaclimb.livewhere.domain.OrderQuery">
+        insert into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dayStart != null">
+                dayStart,
+            </if>
+            <if test="dayEnd != null">
+                dayEnd,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="ownerId != null">
+                ownerId,
+            </if>
+            <if test="houseId != null">
+                houseId,
+            </if>
+            <if test="totalPrice != null">
+                totalPrice,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="dayStart != null">
+                #{dayStart},
+            </if>
+            <if test="dayEnd != null">
+                #{dayEnd},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId},
+            </if>
+            <if test="houseId != null">
+                #{houseId},
+            </if>
+            <if test="totalPrice != null">
+                #{totalPrice},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="searchOrderId" resultMap="BaseResultMap">
+        select orderId from `order` where userId=#{userId} and houseId=#{houseId} and totalPrice=#{totalPrice} and dayStart=#{dayStart} and dayEnd=#{dayEnd}
+    </select>
+
+    <update id="updateStatus" parameterType="com.javaclimb.livewhere.domain.OrderQuery">
+        update `order` set status = '待出行'
+
+        where orderId = #{orderId}
+    </update>
+
+    <select id="searchTime" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select dayStart, dayEnd from `order` where houseId=#{houseId}
+    </select>
+</mapper>

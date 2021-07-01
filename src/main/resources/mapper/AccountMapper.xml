@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.Account">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="changeMoney" jdbcType="FLOAT" property="changeMoney" />
+        <result column="information" jdbcType="VARCHAR" property="information" />
+    </resultMap>
+
+    <insert id="insertAccount" parameterType="com.javaclimb.livewhere.domain.Account">
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="changeMoney != null">
+                changeMoney,
+            </if>
+            <if test="information != null">
+                information,
+            </if>
+        </trim>
+
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+
+            <if test="changeMoney != null">
+                #{changeMoney},
+            </if>
+            <if test="information != null">
+                #{information},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="selectAccount" resultMap="BaseResultMap">
+        select * from account where userId=#{userId} ;
+    </select>
+
+</mapper>

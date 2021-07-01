@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.livewhere.dao.TimeMapper">
+    <resultMap id="BaseResultMap" type="com.javaclimb.livewhere.domain.Time">
+        <!-- jdbcType：数据库中类型 -->
+        <id column="houseId" jdbcType="INTEGER" property="houseId" />
+        <result column="dayStart" jdbcType="TIMESTAMP" property="dayStart" />
+        <result column="dayEnd" jdbcType="TIMESTAMP" property="dayEnd" />
+    </resultMap>
+
+    <select id="searchTime" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select date(dayStart) as dayStart, date(dayEnd) as dayEnd from `order` where houseId=#{houseId}
+    </select>
+</mapper>
